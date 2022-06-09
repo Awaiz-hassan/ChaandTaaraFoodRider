@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "91310377350",
+    "project_id": "chaandtaarafoodrider-183f1",
+    "storage_bucket": "chaandtaarafoodrider-183f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91310377350:android:197ac0ded24c56c5de0407",
+        "android_client_info": {
+          "package_name": "com.apps.chaandtaarafoodrider"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "91310377350-r2a2jad7d0s3kam9a21dnpr7p3j1fhr6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.apps.chaandtaarafoodrider",
+            "certificate_hash": "50a74539d9805d3f355e315869ade872a96b38de"
+          }
+        },
+        {
+          "client_id": "91310377350-enrgfngs2u01nubcu394mjjb17n04fe2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC52rE0SHJYIr53wE6FfThcEeGtygVeoBo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "91310377350-enrgfngs2u01nubcu394mjjb17n04fe2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
