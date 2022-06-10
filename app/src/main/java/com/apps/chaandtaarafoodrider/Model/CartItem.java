@@ -1,21 +1,13 @@
 package com.apps.chaandtaarafoodrider.Model;
 
-public class FoodItemModel {
-
+public class CartItem {
     private String name;
-    private String searchName;
     private String image;
     private String price;
     private String category;
     private String id;
+    private String quantity;
 
-    public String getSearchName() {
-        return searchName;
-    }
-
-    public void setSearchName(String searchName) {
-        this.searchName = searchName;
-    }
 
     public String getName() {
         return name;
@@ -55,5 +47,13 @@ public class FoodItemModel {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 }
