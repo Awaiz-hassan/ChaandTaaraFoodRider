@@ -15,6 +15,7 @@ import com.apps.chaandtaarafoodrider.Fragments.SearchFragment;
 import com.apps.chaandtaarafoodrider.Fragments.UserSettingsFragment;
 import com.apps.chaandtaarafoodrider.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class BottomNavigationActivity extends AppCompatActivity {
 
@@ -25,10 +26,10 @@ public class BottomNavigationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bottom_navigation);
         loadFragment(new HomeFragment());
         BottomNavigationView bottomNavigationView=findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        bottomNavigationView.setOnItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-    private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+    private final NavigationBarView.OnItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
                 Fragment fragment;
                 switch (item.getItemId()) {
@@ -47,19 +48,22 @@ public class BottomNavigationActivity extends AppCompatActivity {
                     case R.id.navigation_favourite:
                         fragment = new FavoriteFragment();
                         loadFragment(fragment);
+                        return true;
                     case R.id.navigation_uer:
                         fragment = new UserSettingsFragment();
                         loadFragment(fragment);
                         return true;
                 }
-
                 return false;
             };
-
     private void loadFragment(Fragment fragment) {
-        // load fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, fragment);
         transaction.commit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

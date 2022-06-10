@@ -8,6 +8,7 @@
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/drawable/edittext_background.xml" value="0.1815" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/drawable/edittext_selected.xml" value="0.1815" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/drawable/edittext_unselected.xml" value="0.1815" />
+        <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/drawable/food_item_background.xml" value="0.312" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/drawable/ic_cancel.xml" value="0.1815" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/activity_bottom_navigation.xml" value="0.18802083333333333" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/activity_email_verification.xml" value="0.36666666666666664" />
@@ -16,6 +17,9 @@
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/activity_register.xml" value="0.36666666666666664" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/activity_splash.xml" value="0.36666666666666664" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/dialog_custom.xml" value="0.36666666666666664" />
+        <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/food_item.xml" value="0.25" />
+        <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/fragment_basket.xml" value="0.36666666666666664" />
+        <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/fragment_user_settings.xml" value="0.36666666666666664" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.196" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.196" />
