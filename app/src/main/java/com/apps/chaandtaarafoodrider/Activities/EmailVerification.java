@@ -121,6 +121,8 @@ public class EmailVerification extends AppCompatActivity {
 
                         Toast.makeText(EmailVerification.this, "Your Email is verified now", Toast.LENGTH_SHORT).show();
                         Intent intent= new Intent(EmailVerification.this, BottomNavigationActivity.class);
+                        SharedPreference sharedPreference = new SharedPreference(EmailVerification.this);
+                        sharedPreference.setUserId(mAuth.getCurrentUser().getUid());
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 
                         startActivity(intent);
@@ -145,6 +147,8 @@ public class EmailVerification extends AppCompatActivity {
                 else{
                     if (dialog!=null)
                     dialog.dismiss();
+                    SharedPreference sharedPreference = new SharedPreference(EmailVerification.this);
+                    sharedPreference.setUserId(mAuth.getCurrentUser().getUid());
                     Toast.makeText(EmailVerification.this, "Your Email is verified now", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(EmailVerification.this, BottomNavigationActivity.class));
 
@@ -165,6 +169,8 @@ public class EmailVerification extends AppCompatActivity {
             public void onClick(View view) {
                 mAuth.signOut();
                 Toast.makeText(EmailVerification.this, "Logout Successful", Toast.LENGTH_SHORT).show();
+                if(sharedPreference!=null)
+                sharedPreference.clearSharedPrefs();
                 startActivity(new Intent(EmailVerification.this, LoginActivity.class));
                 finish();
             }
@@ -185,11 +191,10 @@ public class EmailVerification extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         mAuth.getCurrentUser().reload();
-
         if(mAuth.getCurrentUser().isEmailVerified()){
-
+            SharedPreference sharedPreference = new SharedPreference(EmailVerification.this);
+            sharedPreference.setUserId(mAuth.getCurrentUser().getUid());
             startActivity(new Intent(EmailVerification.this, BottomNavigationActivity.class));
             finish();
 
@@ -204,7 +209,8 @@ public class EmailVerification extends AppCompatActivity {
         super.onStart();
         mAuth.getCurrentUser().reload();
         if(mAuth.getCurrentUser().isEmailVerified()){
-
+            SharedPreference sharedPreference = new SharedPreference(EmailVerification.this);
+            sharedPreference.setUserId(mAuth.getCurrentUser().getUid());
             startActivity(new Intent(EmailVerification.this, BottomNavigationActivity.class));
             finish();
 

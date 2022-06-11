@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/ic_home"
         android:title="@string/home"
 
         />
 
     <item
-        android:id="@+id/navigation_search"
+        android:id="@+id/searchFragment"
         android:icon="@drawable/ic_search"
         android:title="@string/search" />
 
 
     <item
-        android:id="@+id/navigation_basket"
+        android:id="@+id/basketFragment"
         android:icon="@drawable/ic_basket"
         android:title="@string/basket" />
 
     <item
-        android:id="@+id/navigation_favourite"
+        android:id="@+id/favoriteFragment"
         android:icon="@drawable/ic_heart"
         android:title="@string/favorite" />
 
@@ -27,7 +27,7 @@
 
 
     <item
-        android:id="@+id/navigation_uer"
+        android:id="@+id/userSettingsFragment"
         android:icon="@drawable/ic_user"
         android:title="@string/user" />
 </menu>

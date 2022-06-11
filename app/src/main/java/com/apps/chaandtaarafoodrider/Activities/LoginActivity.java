@@ -1,13 +1,7 @@
 package com.apps.chaandtaarafoodrider.Activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,16 +10,18 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.apps.chaandtaarafoodrider.R;
+import com.apps.chaandtaarafoodrider.Utils.SharedPreference;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText edit_text_email_or_username, edit_text_password;
 
-    private TextView forgot_your_password,text_view_create_account;
+    private TextView forgot_your_password, text_view_create_account;
     private Button button_login;
     private ImageButton cancel;
     FirebaseDatabase db;
@@ -48,19 +44,18 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        edit_text_email_or_username= findViewById(R.id.editText);
-        edit_text_password= findViewById(R.id.passText);
-        forgot_your_password= findViewById(R.id.textView3);
-        text_view_create_account= findViewById(R.id.textView5);
-        button_login= findViewById(R.id.button);
-        cancel=findViewById(R.id.imageButton);
+        edit_text_email_or_username = findViewById(R.id.editText);
+        edit_text_password = findViewById(R.id.passText);
+        forgot_your_password = findViewById(R.id.textView3);
+        text_view_create_account = findViewById(R.id.textView5);
+        button_login = findViewById(R.id.button);
+        cancel = findViewById(R.id.imageButton);
         db = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_custom);
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
-
 
 
         forgot_your_password.setOnClickListener(new View.OnClickListener() {
@@ -101,29 +96,24 @@ public class LoginActivity extends AppCompatActivity {
     private void validate() {
 
         dialog.show();
-        if(edit_text_email_or_username.getText().toString().isEmpty()){
+        if (edit_text_email_or_username.getText().toString().isEmpty()) {
 
             edit_text_email_or_username.setError("Email is Empty");
             edit_text_email_or_username.requestFocus();
             dialog.dismiss();
 
-        }
-        else if(edit_text_password.getText().toString().isEmpty()){
+        } else if (edit_text_password.getText().toString().isEmpty()) {
             edit_text_password.setError("Password is Empty");
             edit_text_password.requestFocus();
             dialog.dismiss();
 
-        }
-        else if(!isEmailValid(edit_text_email_or_username.getText().toString().trim())){
+        } else if (!isEmailValid(edit_text_email_or_username.getText().toString().trim())) {
             edit_text_email_or_username.setError("Invalid email!");
             edit_text_email_or_username.requestFocus();
             dialog.dismiss();
-        }
+        } else {
 
-
-        else {
-
-            authentication(edit_text_email_or_username.getText().toString().trim(),edit_text_password.getText().toString().trim());
+            authentication(edit_text_email_or_username.getText().toString().trim(), edit_text_password.getText().toString().trim());
 
         }
     }
@@ -142,12 +132,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
-                if(task.isSuccessful()){
-
+                if (task.isSuccessful()) {
                     user = mAuth.getInstance().getCurrentUser();
-                    String uid = user.getUid();
-
-//                    utils.putToken(uid);
+                    if (user!= null) {
+                        String uid = user.getUid();
+                        SharedPreference sharedPreference = new SharedPreference(LoginActivity.this);
+                        sharedPreference.setUserId(uid);
+                    }
                     dialog.dismiss();
 //                    SharedPreferences.Editor editor = getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit();
 //                    editor.putString("profileid", user.getUid());
@@ -156,10 +147,10 @@ public class LoginActivity extends AppCompatActivity {
                     finish();
 
 
-                }else{
+                } else {
                     dialog.dismiss();
 
-                    Toast.makeText(LoginActivity.this, ""+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
 
 
                 }
@@ -169,15 +160,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 dialog.dismiss();
-                Toast.makeText(LoginActivity.this, ""+ e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
-
-
-
 
 
     }

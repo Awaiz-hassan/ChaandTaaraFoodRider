@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragments_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/userSettingsFragment"
+        android:name="com.apps.chaandtaarafoodrider.Fragments.UserSettingsFragment"
+        android:label="fragment_user_settings"
+        tools:layout="@layout/fragment_user_settings" >
+        <action
+            android:id="@+id/action_userSettingsFragment_to_termsAndConditions"
+            app:destination="@id/termsAndConditions" />
+        <action
+            android:id="@+id/action_userSettingsFragment_to_ordersHistory"
+            app:destination="@id/ordersHistory" />
+        <action
+            android:id="@+id/action_userSettingsFragment_to_accountAndProfile"
+            app:destination="@id/accountAndProfile" />
+        <action
+            android:id="@+id/action_userSettingsFragment_to_manageAddresses"
+            app:destination="@id/manageAddresses" />
+        <action
+            android:id="@+id/action_userSettingsFragment_to_privacyPolicy"
+            app:destination="@id/privacyPolicy" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.apps.chaandtaarafoodrider.Fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/termsAndConditions"
+        android:name="com.apps.chaandtaarafoodrider.Fragments.TermsAndConditions"
+        android:label="fragment_terms_and_conditions"
+        tools:layout="@layout/fragment_terms_and_conditions" />
+    <fragment
+        android:id="@+id/ordersHistory"
+        android:name="com.apps.chaandtaarafoodrider.Fragments.OrdersHistory"
+        android:label="fragment_orders_history"
+        tools:layout="@layout/fragment_orders_history" />
+    <fragment
+        android:id="@+id/accountAndProfile"
+        android:name="com.apps.chaandtaarafoodrider.Fragments.AccountAndProfile"
+        android:label="fragment_account_and_profile"
+        tools:layout="@layout/fragment_account_and_profile" >
+        <action
+            android:id="@+id/action_accountAndProfile_to_changePassword"
+            app:destination="@id/changePassword" />
+    </fragment>
+    <fragment
+        android:id="@+id/manageAddresses"
+        android:name="com.apps.chaandtaarafoodrider.Fragments.ManageAddresses"
+        android:label="fragment_manage_addresses"
+        tools:layout="@layout/fragment_manage_addresses" />
+    <fragment
+        android:id="@+id/privacyPolicy"
+        android:name="com.apps.chaandtaarafoodrider.Fragments.PrivacyPolicy"
+        android:label="fragment_privacy_policy"
+        tools:layout="@layout/fragment_privacy_policy" />
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.apps.chaandtaarafoodrider.Fragments.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/basketFragment"
+        android:name="com.apps.chaandtaarafoodrider.Fragments.BasketFragment"
+        android:label="fragment_basket"
+        tools:layout="@layout/fragment_basket" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.apps.chaandtaarafoodrider.Fragments.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/changePassword"
+        android:name="com.apps.chaandtaarafoodrider.Fragments.ChangePassword"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
+</navigation>

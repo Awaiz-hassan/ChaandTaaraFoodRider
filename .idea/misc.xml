@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.216" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/drawable/bottom_nav_icons_tint.xml" value="0.312" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/drawable/button_background.xml" value="0.2985" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/drawable/edittext_background.xml" value="0.1815" />
@@ -11,7 +12,15 @@
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/drawable/favourite_button_background.xml" value="0.1685" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/drawable/food_item_background.xml" value="0.312" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/drawable/ic_cancel.xml" value="0.1815" />
+        <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/drawable/ic_launcher_background.xml" value="0.216" />
+        <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/drawable/ic_location.xml" value="0.216" />
+        <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/drawable/ic_logout.xml" value="0.216" />
+        <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/drawable/ic_pencil.xml" value="0.216" />
+        <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/drawable/ic_privacypolicy.xml" value="0.216" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/drawable/ic_search.xml" value="0.2275" />
+        <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/drawable/ic_termsandcondtion.xml" value="0.216" />
+        <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/drawable/ic_trash.xml" value="0.216" />
+        <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/drawable/ic_user.xml" value="0.216" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/activity_bottom_navigation.xml" value="0.18802083333333333" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/activity_email_verification.xml" value="0.36666666666666664" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/activity_login.xml" value="0.33" />
@@ -20,8 +29,13 @@
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/activity_splash.xml" value="0.36666666666666664" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/dialog_custom.xml" value="0.36666666666666664" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/food_item.xml" value="0.25" />
+        <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/fragment_account_and_profile.xml" value="0.25" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/fragment_basket.xml" value="0.36666666666666664" />
+        <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/fragment_change_password.xml" value="0.36666666666666664" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/fragment_home.xml" value="0.36666666666666664" />
+        <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/fragment_manage_addresses.xml" value="0.36666666666666664" />
+        <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/fragment_orders_history.xml" value="0.35260416666666666" />
+        <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/fragment_privacy_policy.xml" value="0.33" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/fragment_terms_and_conditions.xml" value="0.36666666666666664" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/layout/fragment_user_settings.xml" value="0.36666666666666664" />
         <entry key="..\:/ChaandTaaraFoodRider/app/src/main/res/menu/bottom_nav_menu.xml" value="0.36666666666666664" />
