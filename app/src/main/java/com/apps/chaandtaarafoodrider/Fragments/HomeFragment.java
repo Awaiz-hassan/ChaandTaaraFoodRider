@@ -31,11 +31,11 @@ public class HomeFragment extends Fragment {
 
     SharedPreference sharedPreference;
     TextView name;
-    RecyclerView popularProducts;
-    FoodItemAdapter popularFoodsAdapter;
-    List<FoodItemModel> popularFoodList;
-    ShimmerFrameLayout popularFoodShimmer;
-    DatabaseReference popularFoodRef;
+    RecyclerView popularProducts,fastFoodRecycler,desiFoodRecycler,bbqRecycler,meatRecycler;
+    FoodItemAdapter popularFoodsAdapter,fastFoodAdapter,desiFoodAdapter,bbqAdapter,meatAdapter;
+    List<FoodItemModel> popularFoodList,fastFoodList,desiFoodList,bbqList,meatList;
+    ShimmerFrameLayout popularFoodShimmer,fastFoodShimmer,desiFoodShimmer,bbqShimmer,meatShimmer;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -46,17 +46,53 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         name = view.findViewById(R.id.name);
-        popularFoodList = new ArrayList<>();
         sharedPreference = new SharedPreference(getActivity());
 
 
-        // Set popular food adapter
-        popularFoodRef = FirebaseDatabase.getInstance().getReference("PopularFoodItems");
+        // Set PopularFood
+        popularFoodList = new ArrayList<>();
         popularProducts = view.findViewById(R.id.popularProducts);
         popularFoodShimmer = view.findViewById(R.id.shimmer_view_container);
-        popularFoodsAdapter = new FoodItemAdapter(getActivity(), popularFoodList);
+        popularFoodsAdapter = new FoodItemAdapter(getActivity(), popularFoodList,sharedPreference.getUserId());
         popularProducts.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         popularProducts.setAdapter(popularFoodsAdapter);
+
+
+        // set FastFood
+        fastFoodList=new ArrayList<>();
+        fastFoodRecycler = view.findViewById(R.id.fastFoodRecycler);
+        fastFoodShimmer = view.findViewById(R.id.shimmer_view_container2);
+        fastFoodAdapter = new FoodItemAdapter(getActivity(), fastFoodList,sharedPreference.getUserId());
+        fastFoodRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        fastFoodRecycler.setAdapter(fastFoodAdapter);
+
+
+
+        // set DesiFood
+        desiFoodList =new ArrayList<>();
+        desiFoodRecycler = view.findViewById(R.id.desiFoodRecycler);
+        desiFoodShimmer = view.findViewById(R.id.shimmer_view_container3);
+        desiFoodAdapter = new FoodItemAdapter(getActivity(), desiFoodList,sharedPreference.getUserId());
+        desiFoodRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        desiFoodRecycler.setAdapter(desiFoodAdapter);
+
+        // setBBQ
+        bbqList=new ArrayList<>();
+        bbqRecycler = view.findViewById(R.id.bbqFoodRecycler);
+        bbqShimmer = view.findViewById(R.id.shimmer_view_container4);
+        bbqAdapter = new FoodItemAdapter(getActivity(), bbqList,sharedPreference.getUserId());
+        bbqRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        bbqRecycler.setAdapter(bbqAdapter);
+
+
+        // setMeat
+        meatList=new ArrayList<>();
+        meatRecycler = view.findViewById(R.id.meatRecycler);
+        meatShimmer = view.findViewById(R.id.shimmer_view_container5);
+        meatAdapter = new FoodItemAdapter(getActivity(), meatList,sharedPreference.getUserId());
+        meatRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        meatRecycler.setAdapter(meatAdapter);
+
 
 
         if (sharedPreference.getUserName() != null) {
@@ -65,6 +101,10 @@ public class HomeFragment extends Fragment {
             getUsername();
         }
         getPopularProducts();
+        getFastFood();
+        getDesiFood();
+        getBBQ();
+        getMeat();
 
         return view;
     }
@@ -90,7 +130,6 @@ public class HomeFragment extends Fragment {
     }
 
     void getPopularProducts() {
-        Log.d("TAG12", "snapshot error: ");
 
         popularFoodShimmer.startShimmer();
         popularFoodShimmer.setVisibility(View.VISIBLE);
@@ -100,7 +139,6 @@ public class HomeFragment extends Fragment {
                 popularFoodList.clear();
                 popularFoodShimmer.stopShimmer();
                 popularFoodShimmer.setVisibility(View.GONE);
-                Log.d("TAG12", "snapshot error: ");
 
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -121,7 +159,157 @@ public class HomeFragment extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
                 popularFoodShimmer.stopShimmer();
                 popularFoodShimmer.setVisibility(View.GONE);
-                Log.d("TAG12", "onCancelled: ");
+            }
+
+        });
+
+
+    }
+
+
+
+    void getFastFood() {
+
+        fastFoodShimmer.startShimmer();
+        fastFoodShimmer.setVisibility(View.VISIBLE);
+        FirebaseDatabase.getInstance().getReference("FoodItems").orderByChild("category").equalTo("fastfood").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                fastFoodList.clear();
+                fastFoodShimmer.stopShimmer();
+                fastFoodShimmer.setVisibility(View.GONE);
+
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        FoodItemModel foodItemModel = snapshot.getValue(FoodItemModel.class);
+
+                        fastFoodList.add(foodItemModel);
+                    }
+                    fastFoodAdapter.notifyDataSetChanged();
+                } else {
+                    fastFoodShimmer.stopShimmer();
+                    fastFoodShimmer.setVisibility(View.GONE);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                fastFoodShimmer.stopShimmer();
+                fastFoodShimmer.setVisibility(View.GONE);
+            }
+
+        });
+
+
+    }
+
+
+    void getDesiFood() {
+
+        desiFoodShimmer.startShimmer();
+        desiFoodShimmer.setVisibility(View.VISIBLE);
+        FirebaseDatabase.getInstance().getReference("FoodItems").orderByChild("category").equalTo("desifood").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                desiFoodList.clear();
+                desiFoodShimmer.stopShimmer();
+                desiFoodShimmer.setVisibility(View.GONE);
+
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        FoodItemModel foodItemModel = snapshot.getValue(FoodItemModel.class);
+
+                        desiFoodList.add(foodItemModel);
+                    }
+                    desiFoodAdapter.notifyDataSetChanged();
+                } else {
+                    desiFoodShimmer.stopShimmer();
+                    desiFoodShimmer.setVisibility(View.GONE);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                popularFoodShimmer.stopShimmer();
+                popularFoodShimmer.setVisibility(View.GONE);
+            }
+
+        });
+
+
+    }
+
+
+    void getBBQ() {
+
+        bbqShimmer.startShimmer();
+        bbqShimmer.setVisibility(View.VISIBLE);
+        FirebaseDatabase.getInstance().getReference("FoodItems").orderByChild("category").equalTo("bbq").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                bbqList.clear();
+                bbqShimmer.stopShimmer();
+                bbqShimmer.setVisibility(View.GONE);
+
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        FoodItemModel foodItemModel = snapshot.getValue(FoodItemModel.class);
+
+                        bbqList.add(foodItemModel);
+                    }
+                   bbqAdapter.notifyDataSetChanged();
+                } else {
+                    bbqShimmer.stopShimmer();
+                    bbqShimmer.setVisibility(View.GONE);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                bbqShimmer.stopShimmer();
+                bbqShimmer.setVisibility(View.GONE);
+            }
+
+        });
+
+
+    }
+
+    void getMeat() {
+        meatShimmer.startShimmer();
+        meatShimmer.setVisibility(View.VISIBLE);
+        FirebaseDatabase.getInstance().getReference("FoodItems").orderByChild("category").equalTo("meat").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                meatList.clear();
+                meatShimmer.stopShimmer();
+                meatShimmer.setVisibility(View.GONE);
+
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        FoodItemModel foodItemModel = snapshot.getValue(FoodItemModel.class);
+
+                        meatList.add(foodItemModel);
+                    }
+                    meatAdapter.notifyDataSetChanged();
+                } else {
+                    meatShimmer.stopShimmer();
+                    meatShimmer.setVisibility(View.GONE);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                meatShimmer.stopShimmer();
+                meatShimmer.setVisibility(View.GONE);
             }
 
         });

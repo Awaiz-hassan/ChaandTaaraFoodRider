@@ -16,6 +16,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -23,11 +28,12 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.FoodIt
 
     private Context context;
     private List<FoodItemModel> foodItemList;
+    private String userId;
 
-
-    public FoodItemAdapter(Context context, List<FoodItemModel> foodItemList) {
+    public FoodItemAdapter(Context context, List<FoodItemModel> foodItemList, String userId) {
         this.context = context;
         this.foodItemList = foodItemList;
+        this.userId = userId;
     }
 
     @NonNull
@@ -53,8 +59,23 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.FoodIt
                         .into(holder.foodImage);
             if (foodItemModel.getName() != null) holder.foodName.setText(foodItemModel.getName());
             if (foodItemModel.getPrice() != null)
-                holder.foodPrice.setText("PKR "+foodItemModel.getPrice());
+                holder.foodPrice.setText("PKR " + foodItemModel.getPrice());
         }
+        if (context != null)
+            if (foodItemModel.getId() != null && holder.like != null && userId != null) {
+                isLikedOrNot(foodItemModel.getId(), holder.like, userId);
+                holder.like.setOnClickListener(view -> {
+                    if (holder.like.getTag().equals("like")) {
+                        FirebaseDatabase.getInstance().getReference().child("Likes").child(userId).child(foodItemModel.getId()).setValue(true);
+
+                    } else {
+                        FirebaseDatabase.getInstance().getReference().child("Likes")
+                                .child(userId)
+                                .child(foodItemModel.getId()).removeValue();
+                    }
+
+                });
+            }
     }
 
     @Override
@@ -64,6 +85,7 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.FoodIt
 
     class FoodItemViewHolder extends RecyclerView.ViewHolder {
         ImageView foodImage;
+        ImageView like;
         TextView foodName;
         TextView foodPrice;
 
@@ -72,7 +94,34 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.FoodIt
             foodImage = itemView.findViewById(R.id.imageView13);
             foodName = itemView.findViewById(R.id.textView8);
             foodPrice = itemView.findViewById(R.id.textView9);
+            like = itemView.findViewById(R.id.like);
 
         }
+    }
+
+
+    private void isLikedOrNot(String postId, final ImageView imageView, String userId) {
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Likes").child(userId).child(postId);
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    imageView.setImageResource(R.drawable.ic_heart_checked);
+                    imageView.setTag("liked");
+                } else {
+                    imageView.setImageResource(R.drawable.ic_heart);
+                    imageView.setTag("like");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                imageView.setImageResource(R.drawable.ic_heart);
+                imageView.setTag("like");
+            }
+        });
+
     }
 }
