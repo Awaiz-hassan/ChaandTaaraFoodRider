@@ -8,14 +8,7 @@ public class FoodItemModel {
     private String price;
     private String category;
     private String id;
-
-    public String getSearchName() {
-        return searchName;
-    }
-
-    public void setSearchName(String searchName) {
-        this.searchName = searchName;
-    }
+    private String description;
 
     public String getName() {
         return name;
@@ -23,6 +16,14 @@ public class FoodItemModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSearchName() {
+        return searchName;
+    }
+
+    public void setSearchName(String searchName) {
+        this.searchName = searchName;
     }
 
     public String getImage() {
@@ -55,5 +56,13 @@ public class FoodItemModel {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

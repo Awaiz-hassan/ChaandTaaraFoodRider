@@ -136,6 +136,7 @@ public class LoginActivity extends AppCompatActivity {
                     user = mAuth.getInstance().getCurrentUser();
                     if (user!= null) {
                         String uid = user.getUid();
+
                         SharedPreference sharedPreference = new SharedPreference(LoginActivity.this);
                         sharedPreference.setUserId(uid);
                     }

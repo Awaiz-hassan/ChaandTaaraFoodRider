@@ -22,7 +22,6 @@ public class EmailVerification extends AppCompatActivity {
 
     private static final String TAG = EmailVerification.class.getSimpleName();
 
-    private Button sendVerifyLink, verifyEmail, logoutBtn;
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     SharedPreference sharedPreference;
@@ -35,9 +34,9 @@ public class EmailVerification extends AppCompatActivity {
         setContentView(R.layout.activity_email_verification);
 
 
-        sendVerifyLink = findViewById(R.id.send_verification_link);
-        verifyEmail = findViewById(R.id.verify_btn);
-        logoutBtn = findViewById(R.id.logout_btn_email_verification);
+        Button sendVerifyLink = findViewById(R.id.send_verification_link);
+        Button verifyEmail = findViewById(R.id.verify_btn);
+        Button logoutBtn = findViewById(R.id.logout_btn_email_verification);
         sharedPreference=new SharedPreference(this);
 
         mAuth = FirebaseAuth.getInstance();
@@ -50,22 +49,13 @@ public class EmailVerification extends AppCompatActivity {
 
 
         if(mAuth.getCurrentUser().isEmailVerified()){
-
             mAuth.getCurrentUser().reload();
-
             Intent intent=new Intent(EmailVerification.this, BottomNavigationActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
             sharedPreference.setLoggedIn(true);
             startActivity(intent);
             finish();
-
         }
-
-
-
-
-
-
 
         sendVerifyLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,14 +83,8 @@ public class EmailVerification extends AppCompatActivity {
                     });
 
                 }
-
-
-
-
-
             }
         });
-
 
         verifyEmail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,8 +142,6 @@ public class EmailVerification extends AppCompatActivity {
 
                 }
 
-
-
             }
         });
 
@@ -175,17 +157,6 @@ public class EmailVerification extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
-
-
-
-
-
-
-
-
     }
 
     @Override
@@ -197,12 +168,8 @@ public class EmailVerification extends AppCompatActivity {
             sharedPreference.setUserId(mAuth.getCurrentUser().getUid());
             startActivity(new Intent(EmailVerification.this, BottomNavigationActivity.class));
             finish();
-
         }
-
-
     }
-
 
     @Override
     protected void onStart() {
