@@ -4,10 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.apps.chaandtaarafoodrider.Model.FoodItemModel;
@@ -22,13 +26,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.FoodItemViewHolder> {
 
-    private Context context;
-    private List<FoodItemModel> foodItemList;
-    private String userId;
+    private final Context context;
+    private final List<FoodItemModel> foodItemList;
+    private final String userId;
+    private int lastPosition = -1;
 
     public FoodItemAdapter(Context context, List<FoodItemModel> foodItemList, String userId) {
         this.context = context;
@@ -66,7 +72,16 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.FoodIt
                 isLikedOrNot(foodItemModel.getId(), holder.like, userId);
                 holder.like.setOnClickListener(view -> {
                     if (holder.like.getTag().equals("like")) {
-                        FirebaseDatabase.getInstance().getReference().child("Likes").child(userId).child(foodItemModel.getId()).setValue(true);
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Likes").child(userId).child(foodItemModel.getId());
+                        HashMap<String, Object> hashMap = new HashMap<>();
+                        hashMap.put("name", foodItemModel.getName());
+                        hashMap.put("searchName", foodItemModel.getSearchName());
+                        hashMap.put("image", foodItemModel.getImage());
+                        hashMap.put("price", foodItemModel.getPrice());
+                        hashMap.put("category", foodItemModel.getCategory());
+                        hashMap.put("id", foodItemModel.getId());
+                        hashMap.put("description", foodItemModel.getDescription());
+                        reference.setValue(hashMap);
 
                     } else {
                         FirebaseDatabase.getInstance().getReference().child("Likes")
@@ -75,7 +90,25 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.FoodIt
                     }
 
                 });
+
+                holder.addToCart.setOnClickListener(view -> {
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Basket").child(userId).child(foodItemModel.getId());
+                    HashMap<String, Object> hashMap = new HashMap<>();
+                    hashMap.put("name", foodItemModel.getName());
+                    hashMap.put("searchName", foodItemModel.getSearchName());
+                    hashMap.put("image", foodItemModel.getImage());
+                    hashMap.put("price", foodItemModel.getPrice());
+                    hashMap.put("category", foodItemModel.getCategory());
+                    hashMap.put("id", foodItemModel.getId());
+                    hashMap.put("description", foodItemModel.getDescription());
+                    reference.setValue(hashMap);
+                    Toast.makeText(context, "Added to Basket", Toast.LENGTH_SHORT).show();
+
+                });
             }
+        if (context != null) {
+            setAnimation(holder.itemView, position);
+        }
     }
 
     @Override
@@ -88,6 +121,7 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.FoodIt
         ImageView like;
         TextView foodName;
         TextView foodPrice;
+        CardView addToCart;
 
         public FoodItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -95,6 +129,7 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.FoodIt
             foodName = itemView.findViewById(R.id.textView8);
             foodPrice = itemView.findViewById(R.id.textView9);
             like = itemView.findViewById(R.id.like);
+            addToCart = itemView.findViewById(R.id.cardView2);
 
         }
     }
@@ -123,5 +158,14 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.FoodIt
             }
         });
 
+    }
+
+    private void setAnimation(View viewToAnimate, int position) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.bottom_up_zoom_out);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
     }
 }
