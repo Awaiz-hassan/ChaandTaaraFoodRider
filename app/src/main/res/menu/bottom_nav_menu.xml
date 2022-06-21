@@ -24,10 +24,9 @@
         android:title="@string/favorite" />
 
 
-
-
     <item
         android:id="@+id/userSettingsFragment"
         android:icon="@drawable/ic_user"
         android:title="@string/user" />
+
 </menu>

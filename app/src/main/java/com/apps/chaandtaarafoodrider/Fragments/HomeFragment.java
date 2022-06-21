@@ -1,7 +1,6 @@
 package com.apps.chaandtaarafoodrider.Fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import com.apps.chaandtaarafoodrider.Utils.SharedPreference;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -31,10 +29,10 @@ public class HomeFragment extends Fragment {
 
     SharedPreference sharedPreference;
     TextView name;
-    RecyclerView popularProducts,fastFoodRecycler,desiFoodRecycler,bbqRecycler,meatRecycler;
-    FoodItemAdapter popularFoodsAdapter,fastFoodAdapter,desiFoodAdapter,bbqAdapter,meatAdapter;
-    List<FoodItemModel> popularFoodList,fastFoodList,desiFoodList,bbqList,meatList;
-    ShimmerFrameLayout popularFoodShimmer,fastFoodShimmer,desiFoodShimmer,bbqShimmer,meatShimmer;
+    RecyclerView popularProducts, fastFoodRecycler, desiFoodRecycler, bbqRecycler, meatRecycler;
+    FoodItemAdapter popularFoodsAdapter, fastFoodAdapter, desiFoodAdapter, bbqAdapter, meatAdapter;
+    List<FoodItemModel> popularFoodList, fastFoodList, desiFoodList, bbqList, meatList;
+    ShimmerFrameLayout popularFoodShimmer, fastFoodShimmer, desiFoodShimmer, bbqShimmer, meatShimmer;
 
 
     public HomeFragment() {
@@ -53,46 +51,44 @@ public class HomeFragment extends Fragment {
         popularFoodList = new ArrayList<>();
         popularProducts = view.findViewById(R.id.popularProducts);
         popularFoodShimmer = view.findViewById(R.id.shimmer_view_container);
-        popularFoodsAdapter = new FoodItemAdapter(getActivity(), popularFoodList,sharedPreference.getUserId());
+        popularFoodsAdapter = new FoodItemAdapter(getActivity(), popularFoodList, sharedPreference.getUserId());
         popularProducts.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         popularProducts.setAdapter(popularFoodsAdapter);
 
 
         // set FastFood
-        fastFoodList=new ArrayList<>();
+        fastFoodList = new ArrayList<>();
         fastFoodRecycler = view.findViewById(R.id.fastFoodRecycler);
         fastFoodShimmer = view.findViewById(R.id.shimmer_view_container2);
-        fastFoodAdapter = new FoodItemAdapter(getActivity(), fastFoodList,sharedPreference.getUserId());
+        fastFoodAdapter = new FoodItemAdapter(getActivity(), fastFoodList, sharedPreference.getUserId());
         fastFoodRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         fastFoodRecycler.setAdapter(fastFoodAdapter);
 
 
-
         // set DesiFood
-        desiFoodList =new ArrayList<>();
+        desiFoodList = new ArrayList<>();
         desiFoodRecycler = view.findViewById(R.id.desiFoodRecycler);
         desiFoodShimmer = view.findViewById(R.id.shimmer_view_container3);
-        desiFoodAdapter = new FoodItemAdapter(getActivity(), desiFoodList,sharedPreference.getUserId());
+        desiFoodAdapter = new FoodItemAdapter(getActivity(), desiFoodList, sharedPreference.getUserId());
         desiFoodRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         desiFoodRecycler.setAdapter(desiFoodAdapter);
 
         // setBBQ
-        bbqList=new ArrayList<>();
+        bbqList = new ArrayList<>();
         bbqRecycler = view.findViewById(R.id.bbqFoodRecycler);
         bbqShimmer = view.findViewById(R.id.shimmer_view_container4);
-        bbqAdapter = new FoodItemAdapter(getActivity(), bbqList,sharedPreference.getUserId());
+        bbqAdapter = new FoodItemAdapter(getActivity(), bbqList, sharedPreference.getUserId());
         bbqRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         bbqRecycler.setAdapter(bbqAdapter);
 
 
         // setMeat
-        meatList=new ArrayList<>();
+        meatList = new ArrayList<>();
         meatRecycler = view.findViewById(R.id.meatRecycler);
         meatShimmer = view.findViewById(R.id.shimmer_view_container5);
-        meatAdapter = new FoodItemAdapter(getActivity(), meatList,sharedPreference.getUserId());
+        meatAdapter = new FoodItemAdapter(getActivity(), meatList, sharedPreference.getUserId());
         meatRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
         meatRecycler.setAdapter(meatAdapter);
-
 
 
         if (sharedPreference.getUserName() != null) {
@@ -165,7 +161,6 @@ public class HomeFragment extends Fragment {
 
 
     }
-
 
 
     void getFastFood() {
@@ -258,10 +253,9 @@ public class HomeFragment extends Fragment {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         FoodItemModel foodItemModel = snapshot.getValue(FoodItemModel.class);
-
                         bbqList.add(foodItemModel);
                     }
-                   bbqAdapter.notifyDataSetChanged();
+                    bbqAdapter.notifyDataSetChanged();
                 } else {
                     bbqShimmer.stopShimmer();
                     bbqShimmer.setVisibility(View.GONE);
