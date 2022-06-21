@@ -20,7 +20,6 @@ import com.google.firebase.database.ValueEventListener;
 public class BottomNavigationActivity extends AppCompatActivity {
 
 
-    int badgeCount = 0;
     SharedPreference sharedPreference;
     BadgeDrawable badge;
 
@@ -35,25 +34,32 @@ public class BottomNavigationActivity extends AppCompatActivity {
 
         badge = bottomNavigationView.getOrCreateBadge(R.id.basketFragment);
         badge.setBackgroundColor(getResources().getColor(R.color.purple_700));
-        badge.setVisible(true);
+        badge.setVisible(false);
+
+
         FirebaseDatabase.getInstance().getReference("Basket").child(sharedPreference.getUserId()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    Long l= snapshot.getChildrenCount();
-                    int i=l.intValue();
-                    if (badge != null) badge.setNumber(i);
+                    long l = snapshot.getChildrenCount();
+                    int i = (int) l;
+                    if (badge != null) {
+                        badge.setNumber(i);
+                        badge.setVisible(true);
+                    }
                 } else {
-                    if (badge != null) badge.setNumber(0);
+                    if (badge != null) {
+                        badge.setVisible(false);
+
+                    }
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                if (badge != null) badge.setVisible(false);
             }
         });
-        badge.setNumber(badgeCount);
 
     }
 
@@ -62,4 +68,5 @@ public class BottomNavigationActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
     }
+
 }
