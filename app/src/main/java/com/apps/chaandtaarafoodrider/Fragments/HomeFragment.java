@@ -1,9 +1,12 @@
 package com.apps.chaandtaarafoodrider.Fragments;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -27,6 +30,8 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
 
+    ScrollView scrollView;
+    int scrollPosition=0;
     SharedPreference sharedPreference;
     TextView name;
     RecyclerView popularProducts, fastFoodRecycler, desiFoodRecycler, bbqRecycler, meatRecycler;
@@ -45,7 +50,15 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         name = view.findViewById(R.id.name);
         sharedPreference = new SharedPreference(getActivity());
-
+        scrollView=view.findViewById(R.id.scrollView);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            scrollView.setOnScrollChangeListener((view1, i, i1, i2, i3) -> {
+                scrollPosition=view1.getScrollY();
+            });
+        }
+        if(scrollPosition>0){
+            scrollView.scrollTo(0,scrollPosition);
+        }
 
         // Set PopularFood
         popularFoodList = new ArrayList<>();
@@ -310,4 +323,13 @@ public class HomeFragment extends Fragment {
 
 
     }
+
+    @Override
+    public void onDestroy() {
+        scrollPosition=0;
+        super.onDestroy();
+    }
+
+
+
 }

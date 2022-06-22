@@ -1,9 +1,11 @@
 package com.apps.chaandtaarafoodrider.Fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -33,6 +35,8 @@ public class BasketFragment extends Fragment {
     private BasketAdapter basketAdapter;
     private SharedPreference sharedPreference;
     private ShimmerFrameLayout basketShimmer;
+    private TextView priceText;
+    double price=0;
 
     public BasketFragment() {
         // Required empty public constructor
@@ -48,9 +52,11 @@ public class BasketFragment extends Fragment {
         basketShimmer = view.findViewById(R.id.shimmer_view_container);
         sharedPreference = new SharedPreference(getActivity());
         recyclerBasket = view.findViewById(R.id.basketRecycler);
+        priceText=view.findViewById(R.id.textView24);
         basketAdapter = new BasketAdapter(getActivity(), cartItemList, sharedPreference.getUserId());
         recyclerBasket.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerBasket.setAdapter(basketAdapter);
+
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         itemTouchHelper.attachToRecyclerView(recyclerBasket);
         getBasketList();
@@ -68,10 +74,11 @@ public class BasketFragment extends Fragment {
                 basketShimmer.setVisibility(View.GONE);
                 if (dataSnapshot.exists()) {
                     cartItemList.clear();
-
+                    price=0;
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         CartItem foodItemModel = snapshot.getValue(CartItem.class);
-
+                        if(foodItemModel!=null)
+                        price=price+Double.parseDouble(foodItemModel.getPrice());
                         cartItemList.add(foodItemModel);
                     }
                     basketAdapter.notifyDataSetChanged();
@@ -79,9 +86,18 @@ public class BasketFragment extends Fragment {
                 } else {
                     if (getActivity() != null) {
                         Toast.makeText(getActivity(), "Basket Empty", Toast.LENGTH_SHORT).show();
+                        price=0;
                         cartItemList.clear();
                         basketAdapter.notifyDataSetChanged();
 
+                    }
+                }
+                if(priceText!=null){
+                    if(price==0){
+                        priceText.setText("PKR 0.00");
+                    }
+                    else{
+                        priceText.setText("PKR " + price);
                     }
                 }
             }
@@ -109,5 +125,6 @@ public class BasketFragment extends Fragment {
             }
         }
     };
+
 
 }

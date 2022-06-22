@@ -7,7 +7,15 @@ public class CartItem {
     private String category;
     private String id;
     private String quantity;
+    private String metric;
 
+    public String getMetric() {
+        return metric;
+    }
+
+    public void setMetric(String metric) {
+        this.metric = metric;
+    }
 
     public String getName() {
         return name;

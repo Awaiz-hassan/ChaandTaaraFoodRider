@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.apps.chaandtaarafoodrider.Model.FoodItemModel;
@@ -81,17 +82,24 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.FoodViewHolder> 
                 if (favFoodItem.getId() != null && userId != null) {
                     holder.addToCart.setOnClickListener(view -> {
 
-                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Basket").child(userId).child(favFoodItem.getId());
+
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Basket").child(userId);
+                        String cartItemId = reference.push().getKey();
+
                         HashMap<String, Object> hashMap = new HashMap<>();
                         hashMap.put("name", favFoodItem.getName());
                         hashMap.put("searchName", favFoodItem.getSearchName());
                         hashMap.put("image", favFoodItem.getImage());
                         hashMap.put("price", favFoodItem.getPrice());
+                        hashMap.put("quantity", "1");
                         hashMap.put("category", favFoodItem.getCategory());
-                        hashMap.put("id", favFoodItem.getId());
+                        hashMap.put("id", cartItemId);
                         hashMap.put("description", favFoodItem.getDescription());
-                        reference.setValue(hashMap);
-                        Toast.makeText(context, "Added to Basket", Toast.LENGTH_SHORT).show();
+                        hashMap.put("metric", favFoodItem.getMetric());
+                        if(cartItemId!=null)
+                        reference.child(cartItemId).setValue(hashMap);
+                        if (context != null)
+                            Toast.makeText(context, "Added to cart", Toast.LENGTH_SHORT).show();
 
 
                     });
@@ -101,6 +109,12 @@ public class FavAdapter extends RecyclerView.Adapter<FavAdapter.FoodViewHolder> 
         if (context != null) {
             setAnimation(holder.itemView, position);
         }
+
+        holder.itemView.setOnClickListener(view -> {
+            Navigation.findNavController(view).navigate(R.id.action_favoriteFragment_to_foodItemDetails);
+
+        });
+
     }
 
     @Override

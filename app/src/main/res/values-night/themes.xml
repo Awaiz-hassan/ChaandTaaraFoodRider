@@ -14,4 +14,9 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
-</resources>
+
+    <style name="ToolBarStyle" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">#FF67E5CE</item>
+        <item name="android:textColorSecondary">#FF67E5CE</item>
+        <item name="actionMenuTextColor">#FF67E5CE</item>
+    </style></resources>

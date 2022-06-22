@@ -92,18 +92,23 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.FoodIt
                 });
 
                 holder.addToCart.setOnClickListener(view -> {
-                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Basket").child(userId).child(foodItemModel.getId());
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Basket").child(userId);
+                    String cartItemId = reference.push().getKey();
+
                     HashMap<String, Object> hashMap = new HashMap<>();
                     hashMap.put("name", foodItemModel.getName());
                     hashMap.put("searchName", foodItemModel.getSearchName());
                     hashMap.put("image", foodItemModel.getImage());
                     hashMap.put("price", foodItemModel.getPrice());
+                    hashMap.put("quantity", "1");
                     hashMap.put("category", foodItemModel.getCategory());
-                    hashMap.put("id", foodItemModel.getId());
+                    hashMap.put("id", cartItemId);
                     hashMap.put("description", foodItemModel.getDescription());
-                    reference.setValue(hashMap);
-                    Toast.makeText(context, "Added to Basket", Toast.LENGTH_SHORT).show();
+                    hashMap.put("metric", foodItemModel.getMetric());
 
+                    if(cartItemId!=null)
+                    reference.child(cartItemId).setValue(hashMap);
+                    Toast.makeText(context, "Added to cart", Toast.LENGTH_SHORT).show();
                 });
             }
         if (context != null) {

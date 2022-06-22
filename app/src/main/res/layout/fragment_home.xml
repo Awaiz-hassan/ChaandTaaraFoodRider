@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/homeFragment"
     xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.HomeFragment">
 
@@ -32,6 +33,7 @@
         app:layout_constraintStart_toEndOf="@+id/textView19" />
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"

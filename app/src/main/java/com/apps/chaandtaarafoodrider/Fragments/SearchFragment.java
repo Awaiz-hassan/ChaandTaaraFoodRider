@@ -37,6 +37,7 @@ public class SearchFragment extends Fragment {
     List<FoodItemModel> searchList;
     SearchAdapter searchAdapter;
     RecyclerView searchRecycler;
+    int scrollPosition=0;
     SharedPreference sharedPreference;
     public SearchFragment() {
         // Required empty public constructor
@@ -54,6 +55,10 @@ public class SearchFragment extends Fragment {
         searchAdapter=new SearchAdapter(getActivity(),searchList,sharedPreference.getUserId());
         searchRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         searchRecycler.setAdapter(searchAdapter);
+
+        if(scrollPosition>0){
+            searchRecycler.scrollTo(0,scrollPosition);
+        }
 
         EditText searchText= view.findViewById(R.id.editText);
         searchText.addTextChangedListener(new TextWatcher() {
@@ -103,5 +108,13 @@ public class SearchFragment extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        if(searchRecycler!=null){
+            scrollPosition=searchRecycler.getScrollY();
+        }
+        super.onDestroyView();
     }
 }
